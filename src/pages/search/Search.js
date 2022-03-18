@@ -1,6 +1,5 @@
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import RecipeList from '../../components/RecipeList';
-import './Search.css';
 import useFetch from '../../hooks/useFetch';
 
 function Search() {
@@ -14,7 +13,7 @@ function Search() {
 
     return (
         <>
-            <h2>Recipes including "{query}"</h2>
+            <h2 className="page-title">Recipes including "{query}"</h2>
 
             {error && <p className="error">{error}</p>}
             {isPending && <p className="loading">Loading...</p>}

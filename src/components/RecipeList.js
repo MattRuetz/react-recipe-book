@@ -2,7 +2,9 @@ import { Link } from 'react-router-dom';
 import './RecipeList.css';
 
 function RecipeList({ recipes }) {
-    return (
+    return recipes.length === 0 ? (
+        <h3 className="error">There are no matches for this search 😔</h3>
+    ) : (
         <div className="recipe-list">
             {recipes.map((recipe) => (
                 <div key={recipe.id} className="card">
