@@ -8,8 +8,6 @@ const useFetch = (url, method = 'GET') => {
     const [options, setOptions] = useState(null);
 
     const postData = (postData) => {
-        setIsPending(true);
-
         setOptions({
             method: 'POST',
             headers: {
@@ -32,7 +30,7 @@ const useFetch = (url, method = 'GET') => {
                     signal: controller.signal,
                 });
 
-                if (res.status !== 200 /* not ok*/) {
+                if (!res.ok /* not ok*/) {
                     // escape to catch block
                     throw new Error(res.statusText);
                 }
