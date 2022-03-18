@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 import './Create.css';
 
@@ -8,10 +8,11 @@ function Create() {
     const [cookingTime, setCookingTime] = useState('');
     const [newIngredient, setNewIngredient] = useState('');
     const [ingredients, setIngredients] = useState([]);
+    const ingredientInput = useRef(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(title, method, cookingTime);
+        console.log(title, method, cookingTime, ingredients);
     };
 
     const handleAddIngredient = (e) => {
@@ -20,8 +21,10 @@ function Create() {
         if (newIngredient.trim() && !ingredients.includes(newIngredient)) {
             setIngredients((prevList) => [...prevList, newIngredient.trim()]);
         } else {
+            console.log('Repeat ingredient added. Bypassing..');
         }
         setNewIngredient('');
+        ingredientInput.current.focus();
     };
 
     return (
@@ -34,6 +37,7 @@ function Create() {
                         type="text"
                         onChange={(e) => setTitle(e.target.value)}
                         value={title}
+                        placeholder="ex. Charlie's Famous Bean Stew"
                         required
                     />
                 </label>
@@ -49,6 +53,8 @@ function Create() {
                             type="text"
                             onChange={(e) => setNewIngredient(e.target.value)}
                             value={newIngredient}
+                            placeholder="ex. Tomatoes"
+                            ref={ingredientInput}
                         />
                         <button
                             className="btn-alt"
@@ -68,11 +74,12 @@ function Create() {
                     />
                 </label>
                 <label>
-                    <span>Cooking Time:</span>
+                    <span>Cooking Time (minutes):</span>
                     <input
                         type="number"
                         onChange={(e) => setCookingTime(e.target.value)}
                         value={cookingTime}
+                        placeholder="ex. 45"
                         required
                     />
                 </label>
