@@ -2,8 +2,6 @@
 import useFetch from '../../hooks/useFetch';
 // Components
 import RecipeList from '../../components/RecipeList';
-// Styles
-import './Home.css';
 
 function Home() {
     const { data, isPending, error } = useFetch(
