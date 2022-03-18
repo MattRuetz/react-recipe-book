@@ -21,7 +21,6 @@ function Create() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(title, method, cookingTime, ingredients);
         postData({
             title,
             ingredients,
@@ -44,7 +43,6 @@ function Create() {
 
     // Redirect to home when data is submitted from form
     useEffect(() => {
-        console.log('DATA::: ' + data);
         if (data) {
             navigate('/');
         }
