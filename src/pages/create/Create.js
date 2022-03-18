@@ -43,27 +43,39 @@ function Create() {
                 </label>
                 <label>
                     <span>Ingredients:</span>
-                    <ul>
-                        {ingredients.map((item) => (
-                            <li key={item}>{item}</li>
-                        ))}
-                    </ul>
                     <div className="ingredients">
-                        <input
-                            type="text"
-                            onChange={(e) => setNewIngredient(e.target.value)}
-                            value={newIngredient}
-                            placeholder="ex. Tomatoes"
-                            ref={ingredientInput}
-                        />
-                        <button
-                            className="btn-alt"
-                            onClick={handleAddIngredient}
-                        >
-                            +
-                        </button>
+                        <div className="text-and-btn">
+                            <input
+                                type="text"
+                                onChange={(e) =>
+                                    setNewIngredient(e.target.value)
+                                }
+                                value={newIngredient}
+                                placeholder="ex. Tomatoes"
+                                ref={ingredientInput}
+                            />
+                            <button
+                                className="btn-alt"
+                                onClick={handleAddIngredient}
+                            >
+                                +
+                            </button>
+                        </div>
+                        {ingredients.length > 0 && (
+                            <p className="ingredients">
+                                <strong>So far: </strong>
+                                {ingredients.map((item, index) =>
+                                    index === ingredients.length - 1 ? (
+                                        <em key={item}>{item}. </em>
+                                    ) : (
+                                        <em key={item}>{item}, </em>
+                                    )
+                                )}
+                            </p>
+                        )}
                     </div>
                 </label>
+
                 <label>
                     <span>Directions:</span>
                     <input
