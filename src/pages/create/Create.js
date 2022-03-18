@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 import './Create.css';
 
@@ -8,10 +8,11 @@ function Create() {
     const [cookingTime, setCookingTime] = useState('');
     const [newIngredient, setNewIngredient] = useState('');
     const [ingredients, setIngredients] = useState([]);
+    const ingredientInput = useRef(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(title, method, cookingTime);
+        console.log(title, method, cookingTime, ingredients);
     };
 
     const handleAddIngredient = (e) => {
@@ -20,8 +21,10 @@ function Create() {
         if (newIngredient.trim() && !ingredients.includes(newIngredient)) {
             setIngredients((prevList) => [...prevList, newIngredient.trim()]);
         } else {
+            console.log('Repeat ingredient added. Bypassing..');
         }
         setNewIngredient('');
+        ingredientInput.current.focus();
     };
 
     return (
@@ -34,30 +37,45 @@ function Create() {
                         type="text"
                         onChange={(e) => setTitle(e.target.value)}
                         value={title}
+                        placeholder="ex. Charlie's Famous Bean Stew"
                         required
                     />
                 </label>
                 <label>
                     <span>Ingredients:</span>
-                    <ul>
-                        {ingredients.map((item) => (
-                            <li key={item}>{item}</li>
-                        ))}
-                    </ul>
                     <div className="ingredients">
-                        <input
-                            type="text"
-                            onChange={(e) => setNewIngredient(e.target.value)}
-                            value={newIngredient}
-                        />
-                        <button
-                            className="btn-alt"
-                            onClick={handleAddIngredient}
-                        >
-                            +
-                        </button>
+                        <div className="text-and-btn">
+                            <input
+                                type="text"
+                                onChange={(e) =>
+                                    setNewIngredient(e.target.value)
+                                }
+                                value={newIngredient}
+                                placeholder="ex. Tomatoes"
+                                ref={ingredientInput}
+                            />
+                            <button
+                                className="btn-alt"
+                                onClick={handleAddIngredient}
+                            >
+                                +
+                            </button>
+                        </div>
+                        {ingredients.length > 0 && (
+                            <p className="ingredients">
+                                <strong>So far: </strong>
+                                {ingredients.map((item, index) =>
+                                    index === ingredients.length - 1 ? (
+                                        <em key={item}>{item}. </em>
+                                    ) : (
+                                        <em key={item}>{item}, </em>
+                                    )
+                                )}
+                            </p>
+                        )}
                     </div>
                 </label>
+
                 <label>
                     <span>Directions:</span>
                     <input
@@ -68,11 +86,12 @@ function Create() {
                     />
                 </label>
                 <label>
-                    <span>Cooking Time:</span>
+                    <span>Cooking Time (minutes):</span>
                     <input
                         type="number"
                         onChange={(e) => setCookingTime(e.target.value)}
                         value={cookingTime}
+                        placeholder="ex. 45"
                         required
                     />
                 </label>
