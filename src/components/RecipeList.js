@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom';
+// hooks
+import { useTheme } from '../hooks/useTheme';
+// Styles
 import './RecipeList.css';
 
 function RecipeList({ recipes }) {
+    const { color } = useTheme();
+
+    console.log(color);
+
     return recipes.length === 0 ? (
         <h3 className="error">There are no matches for this search 😔</h3>
     ) : (
@@ -11,7 +18,12 @@ function RecipeList({ recipes }) {
                     <h3>{recipe.title}</h3>
                     <p>{recipe.cookingTime}</p>
                     <div>{recipe.method.slice(0, 100)}...</div>
-                    <Link to={`/recipes/${recipe.id}`}>Start Cooking...</Link>
+                    <Link
+                        to={`/recipes/${recipe.id}`}
+                        style={{ outlineColor: color }}
+                    >
+                        Start Cooking...
+                    </Link>
                 </div>
             ))}
         </div>
