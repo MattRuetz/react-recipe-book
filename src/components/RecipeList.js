@@ -5,7 +5,7 @@ import { useTheme } from '../hooks/useTheme';
 import './RecipeList.css';
 
 function RecipeList({ recipes }) {
-    const { color } = useTheme();
+    const { color, mode } = useTheme();
 
     console.log(color);
 
@@ -14,7 +14,7 @@ function RecipeList({ recipes }) {
     ) : (
         <div className="recipe-list">
             {recipes.map((recipe) => (
-                <div key={recipe.id} className="card">
+                <div key={recipe.id} className={`card ${mode}`}>
                     <h3>{recipe.title}</h3>
                     <p>{recipe.cookingTime}</p>
                     <div>{recipe.method.slice(0, 100)}...</div>
