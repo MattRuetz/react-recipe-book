@@ -50,8 +50,22 @@
     padding: 8px;
     border-radius: 4px;
     margin: 20px auto 0;
+    outline: 0px solid;
+    outline-color: black;
 }
 
 .recipe-list .card a:hover {
-    outline: 10px double rgba(88, 36, 156, 0.5);
+    outline-width: 3px;
+    outline-style: solid;
+    outline-color: currentColor;
+}
+
+.recipe-list .card.dark {
+    background: #555;
+}
+
+.recipe-list .card.dark p,
+.recipe-list .card.dark h3,
+.recipe-list .card.dark div {
+    color: #e4e4e4;
 }
